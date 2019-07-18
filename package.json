@@ -1,13 +1,13 @@
 {
   "name": "node-cloudworker",
   "version": "1.0.0",
-  "description": "",
+  "description": "A local dev environment for cloudflare workers",
   "main": "index.js",
   "scripts": {
     "test": "jest"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Markus Ahlstrand",
+  "license": "MIT",
   "devDependencies": {
     "jest": "^24.8.0"
   },
