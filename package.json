@@ -15,10 +15,12 @@
     "@dollarshaveclub/node-fetch": "3.2.0",
     "@mattiasbuelens/web-streams-polyfill": "0.3.2",
     "b2a": "1.0.12",
+    "connect": "3.7.0",
     "http-cache-semantics": "4.0.3",
     "lodash": "4.17.14",
     "lru-cache": "5.1.1",
     "node-webcrypto-ossl": "1.0.48",
-    "text-encoding": "0.7.0"
+    "text-encoding": "0.7.0",
+    "typedarray-to-buffer": "3.1.5"
   }
 }
