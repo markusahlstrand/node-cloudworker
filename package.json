@@ -1,0 +1,24 @@
+{
+  "name": "node-cloudworker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.8.0"
+  },
+  "dependencies": {
+    "@dollarshaveclub/node-fetch": "3.2.0",
+    "@mattiasbuelens/web-streams-polyfill": "0.3.2",
+    "b2a": "1.0.12",
+    "http-cache-semantics": "4.0.3",
+    "lodash": "4.17.14",
+    "lru-cache": "5.1.1",
+    "node-webcrypto-ossl": "1.0.48",
+    "text-encoding": "0.7.0"
+  }
+}
