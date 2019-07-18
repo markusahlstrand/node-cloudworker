@@ -71,12 +71,19 @@ function start(handler, port = 3000) {
 
     // Hook up the cloudflare worker handler
     app.use(async (req, res) => {
-        if (['POST', 'PUT', 'PATCH'].indexOf(req.method) !== -1) {
-            req.body = await streamToBuffer(req);
+        const options = {
+            headers: req.headers,
+            method: req.method,
+        };
+
+        if (['POST', 'PUT', 'PATCH'].indexOf(options.method) !== -1) {
+            options.body = await streamToBuffer(req);
         }
 
+        const request = new Request(`http://localhost:${port}${req.url}`, options);
+
         const event = {
-            request: req,
+            request,
             waitUntil: () => { },
         };
 
