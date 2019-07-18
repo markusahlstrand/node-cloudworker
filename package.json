@@ -8,6 +8,14 @@
   },
   "author": "Markus Ahlstrand",
   "license": "MIT",
+  "keywords": [
+    "cloudflare",
+    "cloudflare worker"  
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markusahlstrand/node-cloudworker.git"
+  },
   "devDependencies": {
     "jest": "^24.8.0"
   },
