@@ -5,18 +5,21 @@ The node-cloudworker is a cloudflare worker shim for node combined with a small 
 
 Installing via NPM:
 ```
-npm install https://github.com/markusahlstrand/node-cloudworker
+npm install node-cloudworker --save
 ```
 
 ## Package Usage
 
 ````
-const node-cloudworker = require('https://github.com/markusahlstrand/node-cloudworker');
+const ncm = require('node-cloudworker');
+
+// Some handlers may depend on the shims
+ncm.applyShims();
 
 const handler = event => {
     return new Response('hello', { status: 200 });
 };
 
-node-cloudworker.start(handler);
+ncm.start(handler);
 
 ```

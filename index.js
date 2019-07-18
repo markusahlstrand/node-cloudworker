@@ -62,9 +62,11 @@ function sendResponse(method, res, {
     }
 }
 
-function start(handler) {
+function applyShims() {
     runtime.apply(global);
+}
 
+function start(handler, port = 3000) {
     const app = connect();
 
     // Hook up the cloudflare worker handler
@@ -83,13 +85,14 @@ function start(handler) {
     });
 
     http.createServer(app)
-        .listen(3000, () => {
+        .listen(port, () => {
             // eslint-disable-next-line no-console
-            console.log('Server started on port 3000');
+            console.log(`Server started on port ${port}`);
         });
 
 }
 
 module.exports = {
+    applyShims,
     start,
 }
