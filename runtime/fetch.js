@@ -1,8 +1,6 @@
 const fetch = require('@dollarshaveclub/node-fetch');
 const _ = require('lodash');
 
-// const urlUtils = require('../../src/utils/url');
-
 const Request = fetch.Request;
 const Response = fetch.Response;
 const Headers = fetch.Headers;
@@ -18,10 +16,10 @@ async function fetchShim(url, options = {}) {
     delete headers.host;
   } else {
     // But.... you can override the host header using the resolveOverride.
-    // const { host } = await urlUtils.parse({ url });
-    // _.set(options, 'headers.host', host);
+    const fetchUrl = new URL(url);
+    _.set(options, 'headers.host', fetchUrl.host);
 
-    updatedUrl = url.replace(host, resolveOverride);
+    updatedUrl = url.replace(fetchUrl.host, resolveOverride);
   }
 
   let req = new Request(updatedUrl, options)

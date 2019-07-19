@@ -25,4 +25,14 @@ test('patch textencoder and decoder', () => {
   const textDecoder = new context.TextDecoder();
 
   expect(textDecoder.decode(textEncoder.encode('test'))).toBe('test');
-})
+});
+
+test('patch url to parse host', () => {
+  const context = {};
+  runtime.apply(context);
+
+  expect(context.URL).toBeDefined();
+  
+  const testUrl = new context.URL('http://test.com/path');
+  expect(testUrl.host).toBe('test.com');
+});
