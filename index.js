@@ -7,6 +7,9 @@ const runtime = require('./runtime');
 // The content-encoding will typically be gzip which doesn't match when serving locally
 const headerBlackList = ['content-encoding'];
 
+// Set a flag that can be used to handle local execution differntly
+process.env.LOCAL = true;
+
 function streamToBuffer(stream) {
     return new Promise((resolve) => {
         const segments = [];
