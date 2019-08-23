@@ -75,9 +75,19 @@ function start(handler, port = 3000) {
     // Hook up the cloudflare worker handler
     app.use(async (req, res) => {
         const options = {
-            headers: req.headers,
+            headers: {
+                ...req.headers,
+                // Add cloudflare headers with placeholderss    
+                'x-forwarded-proto': 'http',
+                'x-real-ip': '127.0.0.1',
+                'cf-visitor': '{"scheme":"http"}',
+                'cf-ray': '50ab35020a50cde3',
+                'cf-ipcountry': 'XX',
+                'cf-connecting-ip': '127.0.0.1',
+            },
             method: req.method,
         };
+
 
         if (['POST', 'PUT', 'PATCH'].indexOf(options.method) !== -1) {
             options.body = await streamToBuffer(req);
