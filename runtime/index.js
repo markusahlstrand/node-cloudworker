@@ -1,11 +1,12 @@
-const { Request, Response, fetch, Headers, freezeHeaders } = require('./fetch')
-const { URL } = require('./url')
-const { ReadableStream, WritableStream, TransformStream } = require('./stream')
-const { FetchEvent } = require('./fetch-event')
-const { crypto } = require('./crypto')
-const { TextDecoder, TextEncoder } = require('./text-encoder')
-const { atob, btoa } = require('./base64')
-const CacheFactory = require('./cache')
+const atob = require('atob');
+const btoa = require('btoa');
+const { Request, Response, fetch, Headers } = require('./fetch');
+const { URL } = require('./url');
+const { ReadableStream, WritableStream, TransformStream } = require('./stream');
+const { FetchEvent } = require('./fetch-event');
+const { crypto } = require('./crypto');
+const { TextDecoder, TextEncoder } = require('./text-encoder');
+const CacheFactory = require('./cache');
 
 // Register context functions corresponding to cloudflares environment
 function apply(context) {
