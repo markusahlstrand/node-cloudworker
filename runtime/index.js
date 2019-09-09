@@ -1,4 +1,4 @@
-const atob = require('atob');
+const atob = require('./atob');
 const btoa = require('btoa');
 const { Request, Response, fetch, Headers } = require('./fetch');
 const { URL } = require('./url');
