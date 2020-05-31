@@ -16,6 +16,15 @@ module.exports = class KvStorage {
     );
   }
 
+  async getWithMetadata(key, type) {
+    const value = await this.get(key, value);
+    return {
+      value,
+      // This is not yet supported through the rest api so fake for now.
+      metadata: null,
+    };
+  }
+
   async get(key, type) {
     const url = this.getUrlForKey(key);
 
