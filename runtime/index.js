@@ -1,5 +1,6 @@
 const atob = require('./atob');
 const btoa = require('btoa');
+const FormData = require('formdata-node');
 const { Request, Response, fetch, Headers } = require('./fetch');
 const { URL } = require('./url');
 const { ReadableStream, WritableStream, TransformStream } = require('./stream');
@@ -21,6 +22,7 @@ function apply(context, config = {}) {
   context.WritableStream = WritableStream;
   context.TransformStream = TransformStream;
   context.FetchEvent = FetchEvent;
+  context.FormData = FormData;
   context.crypto = crypto;
   context.TextDecoder = TextDecoder;
   context.TextEncoder = TextEncoder;
