@@ -16,15 +16,6 @@ module.exports = class KvStorage {
     );
   }
 
-  async getWithMetadata(key, type) {
-    const value = await this.get(key, value);
-    return {
-      value,
-      // This is not yet supported through the rest api so fake for now.
-      metadata: null,
-    };
-  }
-
   async get(key, type) {
     const url = this.getUrlForKey(key);
 
@@ -52,27 +43,41 @@ module.exports = class KvStorage {
     return null;
   }
 
+  async getWithMetadata(key, type) {
+    const value = await get(key, type);
+    return {
+      value,
+      // This is not yet supported through the rest api so fake for now.
+      metadata: {},
+    };
+  }
+
   async put(key, value, metadata = {}) {
     const url = this.getUrlForKey(key);
     const searchParams = new URLSearchParams();
 
-    if (this.metadata) {
-      searchParams.append('metadata', JSON.stringify(metadata));
+    if (this.ttl) {
+      searchParams.append('expiration_ttl', this.ttl);
     }
 
     const headers = {
       'X-Auth-Email': this.authEmail,
       'X-Auth-Key': this.authKey,
-      metadata: JSON.stringify(metadata),
     };
 
-    url.search = searchParams;
+    url.search = searchParams.toString();
+
+    const formData = new FormData();
+    formData.append('value', value);
+    formData.append('metadata', JSON.stringify(metadata));
+
+    const body = await streamToString(formData.stream);
 
     // eslint-disable-next-line no-undef
     const response = await fetch(url.toString(), {
       method: 'PUT',
-      headers,
-      body: value,
+      headers: { ...formData.headers, ...headers },
+      body,
     });
 
     return response.ok;

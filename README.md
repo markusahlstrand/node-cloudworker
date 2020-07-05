@@ -24,3 +24,32 @@ const handler = event => {
 ncw.start(handler);
 
 ```
+
+## Cloudflare API's
+
+Cloudflare exposes some cloudflare-specific API's inside the workers. Parts of these are supported with shims.
+
+### Cache
+
+The cache api is borrowed from the [Cloudworker](https://github.com/dollarshaveclub/cloudworker) repo.
+
+### KV-Storage (Beta)
+
+The kv-storage api is using the Cloudflare rest-api to access the KV-Storage. It requires some configuration when applying the shims so that it can access the cloudflare api's:
+```
+ncw.applyShims({
+  kv: {
+    accountId: process.env.CLOUDFLARE_ACCOUNT_ID,
+    authEmail: process.env.CLOUDFLARE_AUTH_EMAIL,
+    authKey: process.env.CLOUDFLARE_AUTH_KEY,
+    bindings: [
+      {
+        variable: 'TEST',
+        namespace: process.env.KV_STORAGE_NAMESPACE,
+      },
+    ],
+  },
+});
+```
+
+So far it only supports CRUD-operations and it does not include the metadata-functionality as this is not yet available through the rest-api.
