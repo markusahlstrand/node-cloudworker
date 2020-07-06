@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 /**
  * This replaces the in-worker api calls for kv-storage with rest-api calls.
  */
@@ -10,10 +12,31 @@ module.exports = class KvStorage {
     this.authKey = authKey;
   }
 
-  getUrlForKey(key) {
+  getNamespaceUrl() {
     return new URL(
-      `https://api.cloudflare.com/client/v4/accounts/${this.accountId}/storage/kv/namespaces/${this.namespace}/values/${key}`,
+      `https://api.cloudflare.com/client/v4/accounts/${this.accountId}/storage/kv/namespaces/${this.namespace}`,
     );
+  }
+
+  getUrlForKey(key) {
+    return new URL(`${this.getNamespaceUrl()}/values/${key}`);
+  }
+
+  async list(prefix, limit = 10) {
+    const url = `${this.getNamespaceUrl()}/keys?prefix=${prefix}&limit=${limit}`;
+
+    // eslint-disable-next-line no-undef
+    const response = await fetch(url, {
+      headers: {
+        'X-Auth-Email': this.authEmail,
+        'X-Auth-Key': this.authKey,
+      },
+    });
+
+    if (response.ok) {
+      return response.json();
+    }
+    return null;
   }
 
   async get(key, type) {
@@ -44,11 +67,12 @@ module.exports = class KvStorage {
   }
 
   async getWithMetadata(key, type) {
-    const value = await get(key, type);
+    const [value, keys] = await Promise.all([this.get(key, type), this.list(key)]);
+
+    const metadata = _.get(keys, 'result.0.metadata', {});
     return {
       value,
-      // This is not yet supported through the rest api so fake for now.
-      metadata: {},
+      metadata,
     };
   }
 
