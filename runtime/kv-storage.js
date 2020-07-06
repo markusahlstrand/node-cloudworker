@@ -1,8 +1,4 @@
-const lodashGet = require('lodash.get');
-
-const _ = {
-  get: lodashGet,
-};
+const _ = require('lodash');
 
 /**
  * This replaces the in-worker api calls for kv-storage with rest-api calls.
