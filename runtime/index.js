@@ -8,7 +8,7 @@ const { FetchEvent } = require('./fetch-event');
 const { crypto } = require('./crypto');
 const { TextDecoder, TextEncoder } = require('./text-encoder');
 const CacheFactory = require('./cache');
-const KvStorage = require('./kv-storage');
+const KvStorage = require('cloudflare-kv-storage-rest');
 
 // Register context functions corresponding to cloudflares environment
 function apply(context, config = {}) {

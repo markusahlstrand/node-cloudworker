@@ -1,6 +1,6 @@
 {
   "name": "node-cloudworker",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "A local dev environment for cloudflare workers",
   "main": "index.js",
   "scripts": {
@@ -19,18 +19,19 @@
   },
   "devDependencies": {
     "dotenv": "8.2.0",
-    "jest": "^26.0.1"
+    "jest": "26.1.0"
   },
   "dependencies": {
     "@dollarshaveclub/node-fetch": "3.2.0",
     "@mattiasbuelens/web-streams-polyfill": "0.3.2",
     "atob": "2.1.2",
     "btoa": "1.2.1",
+    "cloudflare-kv-storage-rest": "0.1.1",
     "connect": "3.7.0",
     "formdata-node": "2.2.1",
     "http-cache-semantics": "4.1.0",
-    "lodash": "4.17.15",
-    "lru-cache": "5.1.1",
+    "lodash": "4.17.19",
+    "lru-cache": "6.0.0",
     "node-webcrypto-ossl": "1.0.48",
     "text-encoding": "0.7.0",
     "typedarray-to-buffer": "3.1.5"
