@@ -52,7 +52,7 @@ function sendResponse(method, res, { status = 404, body = 'Not found', headers =
     }
   });
 
-  if (method === 'HEAD') {
+  if (method === 'HEAD' || body === null) {
     res.end();
   } else if (body.readable || body.getReader) {
     stream(res, body);
