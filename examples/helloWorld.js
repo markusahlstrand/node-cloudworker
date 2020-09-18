@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: '.env' });
 const ncw = require('../');
 
 ncw.applyShims({
@@ -10,6 +10,11 @@ ncw.applyShims({
       {
         variable: 'TEST',
         namespace: process.env.KV_STORAGE_NAMESPACE,
+      },
+      {
+        useFilesystem: true,
+        variable: 'TEST_FS',
+        namespace: 'examples/testfs',
       },
     ],
   },
@@ -36,6 +41,17 @@ const handler = async (event) => {
       return new Response('Created', { status: 201 });
     }
     return new Response('Method not supported', { status: 405 });
+  }
+
+  // Sloppy regex to fetch the key of kv-fs object
+  const kvFsMatch = url.pathname.match(/kv-fs\/(.*)/);
+
+  if (kvFsMatch) {
+    const value = await TEST_FS.get(kvFsMatch[1]);
+    if (value) {
+      return new Response(value, { status: 200 });
+    }
+    return new Response('Not found', { status: 404 });
   }
 
   if (url.pathname === '/pipeTo') {

@@ -5,13 +5,14 @@ It's most likely not as close to the production environment as https://github.co
 ## Installing
 
 Installing via NPM:
+
 ```
 npm install node-cloudworker --save
 ```
 
 ## Package Usage
 
-````
+```
 const ncw = require('node-cloudworker');
 
 // Some handlers may depend on the shims
@@ -36,6 +37,7 @@ The cache api is borrowed from the [Cloudworker](https://github.com/dollarshavec
 ### KV-Storage (Beta)
 
 The kv-storage api is using the Cloudflare rest-api to access the KV-Storage. It requires some configuration when applying the shims so that it can access the cloudflare api's:
+
 ```
 ncw.applyShims({
   kv: {
@@ -52,4 +54,21 @@ ncw.applyShims({
 });
 ```
 
-So far it only supports CRUD-operations and it does not include the metadata-functionality as this is not yet available through the rest-api.
+It is also possible to use the local filesystem to mock KV-Storage. So far it only supports get requests:
+
+```
+ncw.applyShims({
+  kv: {
+    accountId: process.env.CLOUDFLARE_ACCOUNT_ID,
+    authEmail: process.env.CLOUDFLARE_AUTH_EMAIL,
+    authKey: process.env.CLOUDFLARE_AUTH_KEY,
+    bindings: [
+      {
+        useFilesystem: true,
+        variable: 'TEST_FS',
+        namespace: 'examples/testfs',
+      },
+    ],
+  },
+});
+```

@@ -9,6 +9,7 @@ const { crypto } = require('./crypto');
 const { TextDecoder, TextEncoder } = require('./text-encoder');
 const CacheFactory = require('./cache');
 const KvStorage = require('cloudflare-kv-storage-rest');
+const KvFsShim = require('./kv-fs-shim');
 
 // Register context functions corresponding to cloudflares environment
 function apply(context, config = {}) {
@@ -34,12 +35,18 @@ function apply(context, config = {}) {
     const bindings = config.kv.bindings || [];
 
     bindings.forEach((binding) => {
-      context[binding.variable] = new KvStorage({
-        namespace: binding.namespace,
-        authEmail: config.kv.authEmail,
-        authKey: config.kv.authKey,
-        accountId: config.kv.accountId,
-      });
+      if (binding.useFilesystem) {
+        context[binding.variable] = new KvFsShim({
+          namespace: binding.namespace,
+        });
+      } else {
+        context[binding.variable] = new KvStorage({
+          namespace: binding.namespace,
+          authEmail: config.kv.authEmail,
+          authKey: config.kv.authKey,
+          accountId: config.kv.accountId,
+        });
+      }
     });
   }
 }
