@@ -8,7 +8,7 @@ module.exports = class KvFsShim {
 
   async get(key) {
     try {
-      const value = fs.readFileSync(path.join(this.namespace, key));
+      const value = fs.readFileSync(path.join(this.namespace, key)).toString();
       return value;
     } catch (err) {
       return null;

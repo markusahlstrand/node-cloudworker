@@ -1,6 +1,6 @@
 {
   "name": "node-cloudworker",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A local dev environment for cloudflare workers",
   "main": "index.js",
   "scripts": {
