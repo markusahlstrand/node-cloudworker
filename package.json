@@ -30,7 +30,7 @@
     "connect": "3.7.0",
     "formdata-node": "2.2.2",
     "http-cache-semantics": "4.1.0",
-    "lodash": "4.17.19",
+    "lodash": "4.17.21",
     "lru-cache": "6.0.0",
     "mime": "2.4.6",
     "node-webcrypto-ossl": "1.0.48",
